@@ -21,6 +21,12 @@ bot.onText(/\/beer/, function (msg, match) {sendGif("beer", msg);});
 
 bot.onText(/\/coffee/, function (msg, match) {sendGif("coffee", msg);});
 
+bot.onText(/\/kafi/, function (msg, match) {sendGif("coffee", msg);});
+
+bot.onText(/\/tea/, function (msg, match) {sendGif("tea", msg);});
+
+bot.onText(/\/tee/, function (msg, match) {sendGif("tea", msg);});
+
 bot.onText(/\/chill/, function (msg, match) {sendGif("chill", msg);});
 
 bot.onText(/\/gif/, function (msg, match) {

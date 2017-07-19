@@ -58,3 +58,6 @@ typings/
 .env
 
 variables.js
+*.sh
+*.out
+gifbot_pid.txt

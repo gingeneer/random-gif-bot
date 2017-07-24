@@ -38,12 +38,41 @@ bot.onText(/\/gif/, function (msg, match) {
     }
 });
 
+bot.onText(/\/translate/, function (msg, match) {
+    if (msg.text === "/translate" || msg.text === "/translate@RandomGif_spamBot") {
+        translate("", msg);
+    } else {
+        var searchTerm = encodeURI(msg.text.replace(/\/translate/g, "").replace(/@RandomGif_spamBot/g, "").trim());
+        translate(searchTerm, msg);
+    }
+});
+
 function sendGif(tag, msg) {
     url = "http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&rating=r&tag=" + tag;
     request({ url: url, json: true }, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             if (body.data.length != 0) {
                 var response = body.data.image_mp4_url;
+                bot.sendVideo(msg.chat.id, response);
+            } else {
+                bot.sendMessage(msg.chat.id, "¯\\_(ツ)_/¯");
+
+            }
+        }
+        else {
+            console.error(error);
+            bot.sendMessage(msg.chat.id, "¯\\_(ツ)_/¯");
+
+        }
+    });
+}
+
+function translate(tag, msg) {
+    url = "http://api.giphy.com/v1/gifs/translate?api_key=dc6zaTOxFJmzC&s=" + tag;
+    request({ url: url, json: true }, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            if (body.data.length != 0) {
+                var response = body.data.images.original_mp4.mp4;
                 bot.sendVideo(msg.chat.id, response);
             } else {
                 bot.sendMessage(msg.chat.id, "¯\\_(ツ)_/¯");
